@@ -1,0 +1,351 @@
+
+
+body {
+  background-color: #444;
+  margin: 0 auto;
+  max-width: 100%;
+  height: 100%;
+}
+
+html, body {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+body, input, button {
+  font-family: Georgia, Helvetica;
+  font-size: 17px;
+  color: #ecf0f1;
+}
+
+button {
+  font-size: 10px;
+}
+
+h1 {
+  text-align: center;
+  background-color: #AC5C7E;
+  margin-top: 0px;
+  margin-bottom: 0;
+  font-size: 15px;
+  padding: 2px;
+}
+
+h3 {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-bottom: 5px solid #A13462;
+  text-align: center;
+  padding: 10px;
+}
+
+h3 div {
+  margin-bottom: 10px;
+}
+
+.tagline {
+  position: relative;
+  margin-top: 0;
+}
+.tagline-text {
+  vertical-align: middle;
+}
+.__slackin {
+  float: right;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.promo {
+  margin-bottom: 0;
+  font-style: italic;
+  padding: 10px;
+  background-color: #ff4020;
+  border-bottom: 5px solid #c00;
+}
+
+a {
+  font-weight: bold;
+}
+a,
+a:hover {
+  color: #ecf0f1;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+pre code {
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+label {
+  display: block;
+  margin-bottom: 15px;
+}
+
+sub {
+  display: block;
+  text-align: right;
+  margin-top: -10px;
+  font-size: 11px;
+  font-style: italic;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.parent {
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: 50px 0;
+  padding: 20px;
+}
+
+input {
+  border: none;
+  outline: none;
+  background-color: #ecf0f1;
+  padding: 10px;
+  color: #942A57;
+  border: 0;
+  margin: 5px 0;
+  display: block;
+  width: 100%;
+}
+
+button {
+  background-color: #ecf0f1;
+  color: #942A57;
+  border: 0;
+  padding: 1px 0px;
+  margin-left: 6px;
+  margin-right: 6px;
+  cursor: pointer;
+  outline: none;
+}
+
+button:hover {
+  background-color: #AC5C7E;
+  color: #ecf0f1;
+}
+
+.gh-fork {
+  position: fixed;
+  top: 0;
+  right: 0;
+  border: 0;
+}
+
+/* dragula-specific example page styles */
+.wrapper {
+  display: table;
+  height: 95%;
+  width: 100%;
+  bottom: 0px;
+}
+.container {
+  display: table-cell;
+  width: 25%;
+}
+.container2{
+  position: absolute;
+  bottom: 40px;
+  height: 40%;
+  width: 100%;
+}
+
+/*
+ * note that styling gu-mirror directly is a bad practice because it's too generic.
+ * you're better off giving the draggable elements a unique class and styling that directly!
+ */
+.container > div,
+.gu-mirror {
+  margin: 5px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: opacity 0.4s ease-in-out;
+}
+.container > div {
+  cursor: move;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
+.gu-mirror {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
+.container .ex-moved {
+  background-color: #e74c3c;
+}
+.container.ex-over {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+#left-lovehandles > div,
+#right-lovehandles > div {
+  cursor: initial;
+}
+.handle {
+  padding: 0 5px;
+  margin-right: 5px;
+  background-color: rgba(0, 0, 0, 0.4);
+  cursor: move;
+}
+.image-thing {
+  margin: 20px 0;
+  display: block;
+  text-align: center;
+}
+.slack-join {
+  position: absolute;
+  font-weight: normal;
+  font-size: 14px;
+  right: 10px;
+  top: 50%;
+  margin-top: -8px;
+  line-height: 16px;
+}
+
+
+.valintaLista1 {
+    float: top;
+    background-color: #4CAF50;
+    color: white;
+    height: 100%;
+    width: 5%;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.valintaLista2 {
+    float: right;
+    background-color: #4CAF50;
+    color: white;
+    height: 100%;
+    width: 5%;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.valintaLista:hover, .dropbtn:focus {
+    background-color: #1CAF50;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    width: 170px;
+    height: auto;
+    display: none;
+    position: absolute;
+    top:21px;
+    background-color: #f9f9f9;
+    z-index: 6;
+}
+
+/* inside the dropdown */
+.dropdown-content form {
+    width: 100%;
+    color: black;
+    text-decoration: none;
+    display: block
+}
+
+.dropdown-content checkbox {
+    color: black;
+}
+
+
+input[type=checkbox] { 
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: 0;
+}
+input[type=checkbox]:after {
+    width: 150px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+      font-size: 14px;
+      content:attr(name);
+      color: #333;
+      display:block;
+ 
+}
+
+input[type=checkbox]:checked:after {
+  background-color: #fff;
+
+} 
+
+/* Change color of dropdown links on hover */
+.dropdown-content [type=checkbox]:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+    
+
+#ylapalkki {
+  height: 25px;
+}
+
+/* KARTTA */
+#mapid { height: 100%; }
+
+.rawjson {
+  position: absolute;
+  bottom: 0px;
+}
+
+#speedBar2 {
+  -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+}
+
+#mapid {
+    width: 100%;
+    background: #333;
+}
+
+#1-defaults {
+  width: 50%;
+}
+
+.valintaLista.1{
+  position: absolute;
+  right: 5px;
+}
+
+#widgetSelect2{
+  position: absolute;
+  right: 6px;
+}
+
+#widgetSelect1{
+  position: absolute;
+  left: 6px;
+}
