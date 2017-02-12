@@ -1,0 +1,25 @@
+{
+  "name": "pb2",
+  "version": "1.0.0",
+  "description": "Purple Box v2",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OAlm/pb2.git"
+  },
+  "keywords": [
+    "serverless",
+    "node.js",
+    "collaboration"
+  ],
+  "author": "Alm etc",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OAlm/pb2/issues"
+  },
+  "homepage": "https://github.com/OAlm/pb2#readme"
+}
