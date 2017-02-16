@@ -1,20 +1,28 @@
 'use strict';
-/* global io $ document */
+/* global io $ document window */
 
 /**
  * @param {string} app_id the application identifier send to the server
  */
 function initSocket(app_id) {
-	const socket = io().connect('http://localhost:3000');
-
+	console.log('window location: '+window.location);
+	const socket = io('localhost:3000');
+	let sessionid;
 	// register room to the server
 	socket.on('connect', function() {
+		console.log('socket.io connected!');
+		sessionid = socket.io.engine.id;
 		socket.emit('app_id', app_id);
 	});
 
 	// on response
 	socket.on('message', function(data) {
-		console.log('socket.on message received: '+data);
+		let sender = data.socketid;
+		if(data.socketid === sessionid) {
+			sender = 'you';
+		}
+		console.log('message from '+sender+': '+JSON.stringify(data));
+
 		$('#messages').append(data.client_name+' says "'+data.str+'"</br>');
 	});
 
@@ -22,7 +30,6 @@ function initSocket(app_id) {
 	$('#message').bind('keypress', function(e) {
 		const code = (e.keyCode ? e.keyCode : e.which);
 		if (code == 13 && socket) { // keyboard Enter
-			console.log('sending '+$('#message').val());
 			const msg = {};
 			msg.client_name = $('#name').val();
 			msg.app_id = app_id;
@@ -40,7 +47,6 @@ function initNameCheck() {
 	$('#message').css({'background-color': 'grey'});
 
 	$('#name').on('change paste keyup', function() {
-		console.log('name change');
 		if($('#name').val()) {
 			$('#message').prop('disabled', false);
 			$('#message').css({'background-color': 'white'});
@@ -52,7 +58,6 @@ function initNameCheck() {
 }
 
 $(document).ready(function() {
-	console.log('doc ready');
 	initNameCheck();
 	initSocket('chat_app');
 });

@@ -7,12 +7,11 @@ const io = require('socket.io').listen(http);
 const moment = require('moment');
 
 app.use(express.static('static'));
-app.use(bodyParser.json()); // to support JSON-encoded bodies ty7vcytv
+app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
     extended: true,
 }));
 
-// TODO: replace with NPM CORS
 app.use(function(req, res, next) {
     console.log('Time:', moment(Date.now()));
     res.header('Access-Control-Allow-Origin', '*');
@@ -20,6 +19,7 @@ app.use(function(req, res, next) {
         'Origin, X-Requested-With, Content-Type, Accept');
     next();
 });
+
 
 function initRequestHandlers() {
     app.get('/', function(req, res) {
@@ -30,14 +30,15 @@ function initRequestHandlers() {
 
 function initSockets() {
     io.on('connection', function(socket) {
-        console.log('a user connected');
+        const socketid = socket.id;
+        console.log('a user connected with session id '+socket.id);
         socket.on('disconnect', function() {
             console.log('user disconnected');
         });
 
         // dynamic room, from https://gist.github.com/crtr0/2896891
         socket.on('app_id', function(app_id) {
-            console.log('joining room '+app_id);
+            console.log('joining room "'+app_id+'"');
             // app_id = room
             socket.join(app_id);
         });
@@ -45,6 +46,7 @@ function initSockets() {
         socket.on('message', function(jsonMsg) {
             console.log('msg : '+jsonMsg.str);
             console.log('room: '+jsonMsg.app_id);
+            jsonMsg.socketid = socketid; // pad client id to response
             io.sockets.in(jsonMsg.app_id).emit('message', jsonMsg);
         });
     });
