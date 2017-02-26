@@ -5,7 +5,6 @@
  * @param {string} app_id the application identifier send to the server
  */
 function initSocket(app_id) {
-	console.log('window location: '+window.location);
 	const socket = io('localhost:3000');
 	let sessionid;
 	// register room to the server
