@@ -1,0 +1,99 @@
+<!-- FROM https://harrywood.co.uk/maps/examples/leaflet/geolocate.view.html -->
+<html>
+
+<head>
+    <title>Leaflet collaborative geolocation demo</title>
+    <link rel="stylesheet" href="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.css" />
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script language="javascript">
+        var map;
+        // ----------
+        // PB2 STARTS
+        // ----------
+        const socket = io('localhost:3000');
+        const app_id = 'map_demo';
+        let sessionid;
+
+        function initSocket() {
+            // register room to the server
+            socket.on('connect', function () {
+                sessionid = socket.io.engine.id;
+                socket.emit('app_id', app_id);
+            });
+
+            // on response
+            socket.on('message', function (data) {
+                console.log('got data from server: ' + JSON.stringify(data));
+                addMarker(data.latlng, data.socketid);
+            });
+
+        }
+        // PB2 ENDS
+
+        function onLocationFound(e) {
+            console.log('location found!');
+            var location = e.latlng
+            if (socket) { // keyboard Enter
+                console.log('sending coordinates');
+                const msg = {};
+                msg.client_name = $('#name').val();
+                msg.app_id = app_id;
+                msg.time = Date.now();
+                msg.latlng = e.latlng;
+                socket.json.emit('message', msg);
+                $('#message').val('');
+            }
+        }
+
+        function addMarker(location, socketID) {
+            const lat = location.lat;
+            const lng = location.lng;
+            
+            let user;
+            if(socketID == sessionid) {
+                user = 'you!';    
+            } else {
+                user = socketID;
+            }
+
+            L.marker(location).addTo(map)
+                .bindPopup("ID: "+user+"<br/>Latitude :" + lat + "<br/> Longtitude :" + lng).
+                openPopup();
+        }
+
+        function onLocationError(e) {
+            alert(e.message);
+        }
+
+        function getLocationLeaflet() {
+            map.on('locationfound', onLocationFound);
+            map.on('locationerror', onLocationError);
+
+            map.locate({
+                setView: true,
+                maxZoom: 16
+            });
+        }
+
+        function init() {
+            map = new L.Map('map');
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            map.attributionControl.setPrefix(''); // Don't show the 'Powered by Leaflet' text.
+
+            // map view before we get the location
+            map.setView(new L.LatLng(51.505, -0.09), 13);
+            initSocket();
+        }
+    </script>
+</head>
+
+<body onload="javascript:init();">
+    <div id="map" style="height: 60%; width: 60%"></div>
+    <input type="button" value="Locate me!" onclick="javascript:getLocationLeaflet();">
+</body>
+
+</html>
