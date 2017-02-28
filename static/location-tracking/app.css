@@ -1,0 +1,10 @@
+#mapCanvas {
+    background-color: hotpink;
+    width: 400px;
+    height: 300px;
+}
+
+#name {
+    margin-top: 5px;
+    margin-left: 5px;
+}
