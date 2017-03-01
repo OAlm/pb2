@@ -21,7 +21,7 @@ function randomItem(arr) {
 
 
 function initSocket(app_id) {
-    const socket = io('http://busdata.metropolia.fi');
+    const socket = io('localhost:3000');
     let sessionId;
     socket.on('connect', function() {
         console.log('socket.io connected with id ' + app_id);
