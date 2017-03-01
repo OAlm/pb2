@@ -42,7 +42,7 @@ function onLocation(pos) {
         map.removeLayer(marker);
     }
     addMarker(user, c.latitude, c.longitude);
-    map.setView(new L.LatLng(c.latitude, c.longitude), 13);
+    // map.setView(new L.LatLng(c.latitude, c.longitude), 13);
     pb2.sendJson(loc);
 }
 
