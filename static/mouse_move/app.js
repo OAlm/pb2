@@ -1,6 +1,6 @@
 'use strict';
 /* global $ PB2 */
-const pb2 = new PB2('localhost:3000', 'mouse-move-demo');
+const pb2 = new PB2(window.location.hostname, 'mouse-move-demo');
 pb2.setReceiver(onMessage);
 
 function onMessage(data) {

@@ -21,7 +21,8 @@ function randomItem(arr) {
 
 
 function initSocket(app_id) {
-    const socket = io('localhost:3000');
+    console.log('using hostname: '+window.location.hostname);
+    const socket = io(window.location.hostname);
     let sessionId;
     socket.on('connect', function() {
         console.log('socket.io connected with id ' + app_id);

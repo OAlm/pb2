@@ -1,6 +1,6 @@
 'use strict';
 /* global $ PB2 navigator document L */
-const pb2 = new PB2('localhost:3000', 'location-tracking-demo');
+const pb2 = new PB2(window.location.hostname, 'location-tracking-demo');
 //pb2.setReceiver(onMessage);
 
 let map;
