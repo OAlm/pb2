@@ -1,23 +1,5 @@
 'use strict';
 /* global io */
-// event dispatching
-// from https://stackoverflow.com/questions/22186467/how-to-use-javascript-eventtarget
-// implements EventTarget https://developer.mozilla.org/en-US/docs/Web/API/EventTarget
-/*
-class Emitter {
-
-  constructor() {
-    const delegate = document.createDocumentFragment();
-    [
-      'addEventListener',
-      'dispatchEvent',
-      'removeEventListener',
-    ].forEach((f) =>
-      this[f] = (...xs) => delegate[f](...xs)
-    );
-  }
-}
-*/
 
 class PB2 {
 
