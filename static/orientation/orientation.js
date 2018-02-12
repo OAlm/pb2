@@ -1,5 +1,5 @@
 'use strict';
-/* global document $ window io */
+/* global document $ window PB2 */
 $(function() {
   const ball = document.querySelector('.ball');
   const garden = document.querySelector('.garden');
@@ -8,19 +8,11 @@ $(function() {
   const maxX = garden.clientWidth - ball.clientWidth;
   const maxY = garden.clientHeight - ball.clientHeight;
 
-  let app_id = 'orientation-demo';
   console.log('using hostname: '+window.location.hostname);
-  const socket = io(window.location.hostname);
-  let sessionid;
-  // register room to the server
-  socket.on('connect', function() {
-    console.log('socket.io connected!');
-    sessionid = socket.io.engine.id;
-    socket.emit('app_id', app_id);
-  });
+  const pb2 = new PB2(window.location.hostname, 'orientation-demo');
 
   function handleOrientation(event) {
-    let x = event.beta;  // In degree in the range [-180,180]
+    let x = event.beta; // In degree in the range [-180,180]
     let y = event.gamma; // In degree in the range [-90,90]
 
     output.innerHTML = 'beta : ' + x + '\n';
@@ -46,11 +38,9 @@ $(function() {
     ball.style.left = (maxY*y/180 - 10) + 'px';
 
     const msg = {};
-    msg.app_id = app_id;
-    msg.time = Date.now();
     msg.beta = event.beta;
     msg.gamma = event.gamma;
-    socket.json.emit('message', msg);
+    pb2.sendJson('message', msg);
   }
 
   window.addEventListener('deviceorientation', handleOrientation);
