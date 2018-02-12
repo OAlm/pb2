@@ -37,7 +37,7 @@ function initSockets() {
 
         // This event is triggered when the user disconnect but before the socket leave its rooms
         socket.on('disconnecting', function () {
-            for(var room in socket.rooms){
+            for(let room in socket.rooms){
                 // We send a message to all the user of the rooms
                 if(socket.rooms.hasOwnProperty(room) && room != socket.id){
                     io.in(room).emit('user:disconnect', {id: socket.id});
