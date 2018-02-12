@@ -15,8 +15,7 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 app.use(function(req, res, next) {
     console.log('Time:', moment(Date.now()));
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Headers', 2, 'Origin, X-Requested-With, Content-Type, Accept');
     next();
 });
 

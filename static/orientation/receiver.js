@@ -1,6 +1,9 @@
 'use strict';
-/* global document $ window io */
+/* global document $ window PB2 */
 $(function() {
+  const pb2 = new PB2(window.location.hostname, 'orientation-demo');
+  pb2.setReceiver(onMove);
+
   const ball = document.querySelector('.ball');
   const garden = document.querySelector('.garden');
   const output = document.querySelector('.output');
@@ -8,24 +11,15 @@ $(function() {
   const maxX = garden.clientWidth - ball.clientWidth;
   const maxY = garden.clientHeight - ball.clientHeight;
 
-  let app_id = 'orientation-demo';
-  const socket = io('localhost:3000');
-  let sessionid;
-  // register room to the server
-  socket.on('connect', function() {
-    console.log('socket.io connected!');
-    sessionid = socket.io.engine.id;
-    socket.emit('app_id', app_id);
-  });
-
-  socket.on('message', function(data) {
+  function onMove(data) {
+  // socket.on('message', function(data) {
     let sender = data.socketid;
-    if(data.socketid === sessionid) {
+    if (data.me) {
         sender = 'you';
     }
     console.log('message from '+sender+': '+JSON.stringify(data));
-    let x = msg.beta;
-    let y = msg.gamma;
+    let x = data.json.beta;
+    let y = data.json.gamma;
 
     output.innerHTML = 'beta : ' + x + '\n';
     output.innerHTML += 'gamma: ' + y + '\n';
@@ -42,12 +36,11 @@ $(function() {
     // To make computation easier we shift the range of
     // x and y to [0,180]
     x += 90;
-    y += 90;
+     y += 90;
 
     // 10 is half the size of the ball
     // It center the positioning point to the center of the ball
     ball.style.top = (maxX*x/180 - 10) + 'px';
     ball.style.left = (maxY*y/180 - 10) + 'px';
-  });
-
+  }
 });

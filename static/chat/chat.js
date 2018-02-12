@@ -1,63 +1,53 @@
 'use strict';
-/* global io $ document window */
+/* global $ PB2 */
 
-/**
- * @param {string} app_id the application identifier send to the server
- */
-function initSocket(app_id) {
-	console.log('using hostname: '+window.location.hostname);
-	const socket = io(window.location.hostname);
-	let sessionid;
-	// register room to the server
-	socket.on('connect', function() {
-		console.log('socket.io connected!');
-		sessionid = socket.io.engine.id;
-		socket.emit('app_id', app_id);
-	});
+function initPB() {
+    const pb2 = new PB2(window.location.hostname, 'chat-demo');
+    pb2.setReceiver(onMessage);
 
-	// on response
-	socket.on('message', function(data) {
-		let sender = data.socketid;
-		if(data.socketid === sessionid) {
-			sender = 'you';
-		}
-		console.log('message from '+sender+': '+JSON.stringify(data));
-
-		$('#messages').append(data.client_name+' says "'+data.str+'"</br>');
-	});
-
-	// sending messages
-	$('#message').bind('keypress', function(e) {
-		const code = (e.keyCode ? e.keyCode : e.which);
-		if (code == 13 && socket) { // keyboard Enter
-			const msg = {};
-			msg.client_name = $('#name').val();
-			msg.app_id = app_id;
-			msg.time = Date.now();
-			msg.str = $('#message').val();
-			socket.json.emit('message', msg);
-			$('#message').val('');
+    // sending messages
+    $('#message').bind('keypress', function(e) {
+        const code = (e.keyCode ? e.keyCode : e.which);
+        if (code == 13) { // keyboard Enter
+            const msg = {};
+            msg.client_name = $('#name').val();
+            msg.str = $('#message').val();
+            pb2.sendJson(msg);
+            $('#message').val('');
         }
-	});
+    });
 }
 
-/** @function */
-function initNameCheck() {
-	$('#message').prop('disabled', true);
-	$('#message').css({'background-color': 'grey'});
+function onMessage(data) {
+    let sender = data.json.client_name;
+    if (data.me) {
+        sender = 'you';
+    }
+    $('#messages').append(sender + ' says "' + data.json.str + '"</br>');
+}
 
-	$('#name').on('change paste keyup', function() {
-		if($('#name').val()) {
-			$('#message').prop('disabled', false);
-			$('#message').css({'background-color': 'white'});
-		} else {
-			$('#message').prop('disabled', true);
-			$('#message').css({'background-color': 'grey'});
-		}
-	});
+function initNameCheck() {
+    $('#message').prop('disabled', true);
+    $('#message').css({
+        'background-color': 'grey',
+    });
+
+    $('#name').on('change paste keyup', function() {
+        if ($('#name').val()) {
+            $('#message').prop('disabled', false);
+            $('#message').css({
+                'background-color': 'white',
+            });
+        } else {
+            $('#message').prop('disabled', true);
+            $('#message').css({
+                'background-color': 'grey',
+            });
+        }
+    });
 }
 
 $(document).ready(function() {
-	initNameCheck();
-	initSocket('chat_app');
+    initNameCheck();
+    initPB();
 });

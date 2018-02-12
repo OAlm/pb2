@@ -2,10 +2,13 @@
 /* global io */
 
 class PB2 {
-
     constructor(serverURL, appName) {
         this.appName = appName;
-        this.socket = io(serverURL);
+        if (serverURL === 'localhost') {
+          this.socket = io();
+        } else {
+          this.socket = io(serverURL);
+        }
         this.connect(this.appName, this.socket);
     }
 
@@ -19,8 +22,7 @@ class PB2 {
 
     setReceiver(receiverFunction) {
       this.socket.on('message', function(msg) {
-        console.log('on message');
-        if(msg.socketid === this.sessionid) {
+        if (msg.socketid === this.sessionid) {
           msg.me = true;
         } else {
           msg.me = false;
@@ -30,7 +32,6 @@ class PB2 {
     }
 
     sendJson(json) {
-      console.log('send json');
       let msg = {};
       msg.app_id = this.appName;
       msg.time = Date.now();

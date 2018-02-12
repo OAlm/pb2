@@ -1,1 +1,1 @@
-experiment for having a PB2 client library
+mouse move demo: send and receive coordinates via server

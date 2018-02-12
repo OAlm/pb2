@@ -19,10 +19,14 @@ function randomItem(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
-
 function initSocket(app_id) {
-    console.log('using hostname: '+window.location.hostname);
-    const socket = io(window.location.hostname);
+    let serverURL = window.location.hostname;
+    let socket;
+    if (serverURL === 'localhost') {
+        socket = io();
+    } else {
+        socket = io(serverURL);
+    }   
     let sessionId;
     socket.on('connect', function() {
         console.log('socket.io connected with id ' + app_id);
@@ -33,7 +37,6 @@ function initSocket(app_id) {
     // on response
     let users = {};
     socket.on('message', function(data) {
-        let sender = data.socketid;
         if (data.socketid !== sessionId) {
             // not you, but somebody else
             let user = data.socketid;

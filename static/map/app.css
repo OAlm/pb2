@@ -1,0 +1,7 @@
+.image-icon img {
+    height: 52px !important;
+    width: 52px !important;
+    border-radius: 50%;
+    border: solid;
+    border-color: green;
+}
