@@ -27,7 +27,7 @@ function initSocket(app_id) {
 
 		$.ajax({
             dataType: 'json',
-            url: 'http://api.giphy.com/v1/gifs/search',
+            url: 'https://api.giphy.com/v1/gifs/search',
             data: {
                 'api_key': 'dc6zaTOxFJmzC',
                 'q': data.str,
