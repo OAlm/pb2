@@ -30,6 +30,18 @@ class PB2 {
         receiverFunction(msg);
       }.bind(this));
     }
+    
+    setConnectionHandler(receiverFunction) {
+      this.socket.on('user:connect', function(msg) {
+        receiverFunction(msg);
+      }.bind(this));
+    }
+    
+    setDisconnectionHandler(receiverFunction) {
+      this.socket.on('user:disconnect', function(msg) {
+        receiverFunction(msg);
+      }.bind(this));
+    }
 
     sendJson(json) {
       let msg = {};

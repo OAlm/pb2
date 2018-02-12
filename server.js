@@ -35,10 +35,21 @@ function initSockets() {
             console.log('user disconnected');
         });
 
+        // This event is triggered when the user disconnect but before the socket leave its rooms
+        socket.on('disconnecting', function () {
+            for(let room in socket.rooms){
+                // We send a message to all the user of the rooms
+                if(socket.rooms.hasOwnProperty(room) && room != socket.id){
+                    io.in(room).emit('user:disconnect', {id: socket.id});
+                }
+            }
+        });
+        
         // dynamic room, from https://gist.github.com/crtr0/2896891
         socket.on('app_id', function(app_id) {
             console.log('joining room "'+app_id+'"');
-            // app_id = room
+            // We inform all the other user of the room that a new socket has connected
+            io.sockets.in(app_id).emit('user:connect', {id: socket.id});
             socket.join(app_id);
         });
 
