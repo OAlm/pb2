@@ -18,8 +18,8 @@ $(function() {
         sender = 'you';
     }
     console.log('message from '+sender+': '+JSON.stringify(data));
-    let x = data.json.beta;
-    let y = data.json.gamma;
+    let x = data.beta;
+    let y = data.gamma;
 
     output.innerHTML = 'beta : ' + x + '\n';
     output.innerHTML += 'gamma: ' + y + '\n';
