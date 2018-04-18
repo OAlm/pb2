@@ -53,7 +53,7 @@ pb2.sendJson(msg);
 In order to receive messages, the following javascript code can be used:
 ```js
 pb2.setReceiver(function(data) {
-		console.log('socket.on message received: '+data);
+  console.log('socket.on message received: '+data);
 });
 ```
 The socket will receive any messages send to the server with the app_id.
