@@ -31,7 +31,7 @@ In below, we connect to a server ```https://pb2.mydomain.com``` with *app_id* ``
 ```js
 const pb2 = new PB2('https://pb2.mydomain.com/', 'my_first_app_123');
 ```
-(in Socket.io terms, your app will connect to a (room)[http://socket.io/docs/rooms-and-namespaces/] my_first_app_123)
+(in Socket.io terms, your app will connect to a [room](http://socket.io/docs/rooms-and-namespaces/) my_first_app_123)
 
 **(2) Sending messages**
 
